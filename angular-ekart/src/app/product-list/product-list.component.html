@@ -1,0 +1,14 @@
+<p>Name: {{ product.name }}</p>
+<p>Price: {{ "$" + product.price }}</p>
+<p>Quantity: 10</p>
+<p>Color: {{ product.color }}</p>
+<p>Discount: {{ product.discount + "%" }}</p>
+<!-- <p>Discount Price: {{ "$" + product.price * (1 - product.discount / 100) }}</p> -->
+<p>Discount Price: {{ "$" + getDiscountedPrice().toFixed(2) }}</p>
+<p>
+  {{
+    product.inStock > 0
+      ? product.inStock + " items left in Stock"
+      : "Out of Stock"
+  }}
+</p>
