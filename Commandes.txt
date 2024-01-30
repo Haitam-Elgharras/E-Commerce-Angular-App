@@ -1,0 +1,15 @@
+# To install Angular CLI globally
+npm i -g @angular/cli@latest
+
+# To create a new Angular project
+ng new my-app
+
+# To run the Angular project
+ng serve 
+this command will compile and bundle the application and start the server
+
+# To build the Angular project
+ng build
+
+# install bootstrap
+npm install bootstrap --save
