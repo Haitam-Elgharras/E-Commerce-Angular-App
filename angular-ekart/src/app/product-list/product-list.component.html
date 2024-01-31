@@ -1,14 +1,35 @@
-<p>Name: {{ product.name }}</p>
-<p>Price: {{ "$" + product.price }}</p>
-<p>Quantity: 10</p>
-<p>Color: {{ product.color }}</p>
-<p>Discount: {{ product.discount + "%" }}</p>
-<!-- <p>Discount Price: {{ "$" + product.price * (1 - product.discount / 100) }}</p> -->
-<p>Discount Price: {{ "$" + getDiscountedPrice().toFixed(2) }}</p>
-<p>
-  {{
-    product.inStock > 0
-      ? product.inStock + " items left in Stock"
-      : "Out of Stock"
-  }}
-</p>
+<div class="m-3">
+  <img [src]="product.pImage" />
+  <p>Name: {{ product.name }}</p>
+  <p>Price: {{ "$" + product.price }}</p>
+  <p>Quantity: 10</p>
+  <p>Color: {{ product.color }}</p>
+  <p>Discount: {{ product.discount + "%" }}</p>
+  <!-- <p>Discount Price: {{ "$" + product.price * (1 - product.discount / 100) }}</p> -->
+  <p>Discount Price: {{ "$" + getDiscountedPrice().toFixed(2) }}</p>
+  <p>
+    {{
+      product.inStock > 0
+        ? product.inStock + " items left in Stock"
+        : "Out of Stock"
+    }}
+  </p>
+
+  <div class="m-3">
+    <button class="btn btn-primary me-2" (click)="decrement()">-</button>
+    <span class="ms-2 me-2 p-2">{{ addToCart }}</span>
+    <button class="btn btn-primary ms-2" (click)="increment()">+</button>
+  </div>
+</div>
+
+<!-- Property binding -->
+<!-- <button [disabled]="product.inStock == 0" class="btn btn-primary m-3">
+  Buy Now
+</button>
+<input bind-value="name" class="d-block m-3" /> -->
+
+<!-- event binding -->
+<!-- <div class="d-block m-3">
+  <input (input)="onNameChange($event)" />
+  <p>{{ name }}</p>
+</div> -->

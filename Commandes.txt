@@ -13,3 +13,18 @@ ng build
 
 # install bootstrap
 npm install bootstrap --save
+
+# create complete component from CLI
+    ng generate component component-name
+    ng g c component-name
+
+
+# string interpolation
+    {{ data }}
+
+# property binding
+    [property]="data"
+or  bind-property="data"
+
+example : <img [src]="imagePath">
+          <img bind-src="imagePath">
