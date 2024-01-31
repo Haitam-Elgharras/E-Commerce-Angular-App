@@ -7,10 +7,20 @@ import { TopHeaderComponent } from './top-header/top-header.component';
 import { TopMenuComponent } from './header/top-menu/top-menu.component';
 import { MainMenuComponent } from './header/main-menu/main-menu.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { SearchComponent } from './product-list/search/search.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, TopHeaderComponent, TopMenuComponent, MainMenuComponent, ProductListComponent],
-  imports: [BrowserModule],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    TopHeaderComponent,
+    TopMenuComponent,
+    MainMenuComponent,
+    ProductListComponent,
+    SearchComponent,
+  ],
+  imports: [BrowserModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
