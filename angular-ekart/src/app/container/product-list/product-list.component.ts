@@ -602,4 +602,11 @@ export class ProductListComponent {
   totalNumber = this.products.length;
   totalInStock = this.products.filter((p) => p.is_in_inventory).length;
   totalOutOfStock = this.totalNumber - this.totalInStock;
+
+  selectedFilter: string = 'all';
+
+  onFilter(filter: string) {
+    this.selectedFilter = filter;
+    console.log(this.selectedFilter);
+  }
 }

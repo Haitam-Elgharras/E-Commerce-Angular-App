@@ -28,3 +28,47 @@ or  bind-property="data"
 
 example : <img [src]="imagePath">
           <img bind-src="imagePath">
+
+
+# event binding
+    (event)="expression"
+
+# Two way binding
+    [(ngModel)]="data"
+or [prop]="data" (Click)="propChange($event)"
+
+# Directives
+1- component directive : add a component to the DOM
+    for example <app-root></app-root>
+    
+2- attribute directive : change the appearance or behavior of an element, component, or another directive
+    for example ngStyle, ngClass
+    [ngStyle]="{color: isGreen ? 'green' : 'red'}"
+
+3- structural directive: change the structure of the DOM by adding or removing elements 
+   for example *ngIf, *ngFor
+
+# Communication between components
+1- from parent to child
+in the class of the child component we decorate the property with @Input() decorator
+    @Input() 
+    item: string;
+
+in the html of the parent component we pass the data to the child component
+    <app-child *ngFor="let item of items" [item]="item"></app-child>
+or 
+    <app-child item="item"></app-child>
+
+the items is an array of strings in the class of the parent component for example
+
+2- from child to parent via event binding
+in the class of the child component we decorate the property with @Output() decorator
+    @Output() 
+    newItemEvent = new EventEmitter<string>();
+
+onEvent() {
+    this.newItemEvent.emit(this.item);
+}
+
+so the parent component can listen to the event newItemEvent and can receive 
+the emitted data from the child component
