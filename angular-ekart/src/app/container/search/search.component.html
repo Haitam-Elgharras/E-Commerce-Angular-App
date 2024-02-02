@@ -1,20 +1,7 @@
 <div class="ekart--search--product">
-  <input
-    class="ekart-search-product-input"
-    [(ngModel)]="searchText"
-    (input)="onSearchTextChange()"
-  />
-  <!--
-    or
-     <input class="ekart-search-product-input" [value]="searchText" (input)="updateSearchText($event)" />
-   -->
-  <button
-    [ngClass]="{
-      'btn-search': searchText,
-      'btn ': true,
-      'btn-search-disabled': !searchText,
-    }"
-  >
+  <input class="ekart-search-product-input" #searchInputRef />
+
+  <button class="btn btn-search" (click)="onSearchTextChange(searchInputRef)">
     Search
   </button>
 </div>

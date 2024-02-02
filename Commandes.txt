@@ -72,3 +72,14 @@ onEvent() {
 
 so the parent component can listen to the event newItemEvent and can receive 
 the emitted data from the child component
+
+
+# Template reference variables
+    <input #myInput type="text">
+    <button (click)="logMessage(myInput.value)">Log</button>
+
+    logMessage(value) {
+        console.log(value);
+    }
+it stores to a DOM element on which we have defined it 
+and we can access it in the template
