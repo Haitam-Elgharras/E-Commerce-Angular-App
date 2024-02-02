@@ -1,6 +1,12 @@
 <div class="ekart--product--container">
   <app-search (searchTextChanged)="onSearchTextChange($event)"></app-search>
-  <product-list [searchText]="searchText" #productListComponent></product-list>
+  <product-list
+    [searchText]="searchText"
+    #productListComponent
+    [ngStyle]="{
+      zindex: productListComponent.selectedProduct ? '-1' : ''
+    }"
+  ></product-list>
   <product-details
     *ngIf="productListComponent.selectedProduct"
     [productListComp]="productListComponent"

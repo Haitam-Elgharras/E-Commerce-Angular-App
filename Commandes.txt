@@ -81,5 +81,34 @@ the emitted data from the child component
     logMessage(value) {
         console.log(value);
     }
-it stores to a DOM element on which we have defined it 
+it stores to a DOM element a component or a directive on which we have defined it 
 and we can access it in the template
+
+
+# viewChild decorator
+    @ViewChild('myInput'): will give us access to the DOM element or the component or the directive which have a template reference variable
+    called myInput (#myInput) it returns the first element that matches the selector
+
+The view child allows us to access the DOM element without the need of waiting of an event to be triggered
+
+# viewChildren decorator
+    @ViewChildren('myInput'): will give us access to the DOM elements or the components or the directives which 
+    have a template reference variable
+    called myInput (#myInput) it returns a QueryList of elements that matches the selector
+    it has only one optional parameter( read: boolean) which is false by default.
+    the elements will be initialized only when a change detection cycle is triggered unlike the viewChild
+    where we have the static flag to choice when we want the element to be initialized
+
+# ng-template
+
+    <ng-template #templateRef>
+        <h2>Template Reference</h2>
+    </ng-template>
+
+    <div *ngIf="display; then templateRef else elseBlock"></div>
+
+    <ng-template #elseBlock>
+        <h2>Else Block</h2>
+    </ng-template>
+
+    the whole div will be replaced by the content of one of the ng-template based on the condition

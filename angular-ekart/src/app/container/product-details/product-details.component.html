@@ -77,7 +77,20 @@
     </div>
   </div>
   <div class="ekart-product-detail-addtoCart">
-    <button class="btn-add-to-cart">ADD TO CART</button>
+    <button
+      class="btn btn-primary"
+      *ngIf="selectedProduct.is_in_inventory; else notifyMe"
+    >
+      ADD TO CART
+    </button>
+
+    <ng-template #notifyMe>
+      <button class="btn btn-danger">NOTIFY ME</button>
+    </ng-template>
   </div>
 </div>
-<div class="overlay" *ngIf="selectedProduct"></div>
+<div
+  class="overlay"
+  *ngIf="selectedProduct"
+  (click)="onHideProductDetails()"
+></div>
