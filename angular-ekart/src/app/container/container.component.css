@@ -1,7 +1,42 @@
-.ekart--product--container {
+.call-to-action {
+  color: #fff;
+  width: 100%;
+  padding: 10px 0px;
+  font-size: small;
+}
+
+.ekart-featured-products {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  background-color: #282828;
+  height: fit-content;
   padding: 10px 30px;
 }
-button {
-  padding: 5px 10px;
-  margin: 0px 5px;
+
+.ekart-featured-product-Heading {
+  margin: 30px 0;
+  width: 230px;
+  color: #fff;
+}
+
+.ekart-featured-product-item {
+  width: 270px;
+  margin: 10px;
+  padding: 20px 30px;
+  background-color: #fff;
+  height: 100px;
+}
+
+.title,
+.description,
+.call-to-action {
+  margin: 10px 0;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
 }

@@ -112,3 +112,18 @@ The view child allows us to access the DOM element without the need of waiting o
     </ng-template>
 
     the whole div will be replaced by the content of one of the ng-template based on the condition
+
+# ng-container
+    it is a grouping element that doesn't interfere with the styles or layout of the page
+    it is used to group elements together and apply structural directives to them
+    it is not rendered in the DOM
+
+# ng-content : it is used to project the content of the parent component to the child component
+    <app-child>
+        <h2 class="heading">Hello</h2>
+    </app-child>
+
+    in the child component
+        <ng-content select=".heading"></ng-content>
+    it will project the h2 element with the class heading to the child component
+    

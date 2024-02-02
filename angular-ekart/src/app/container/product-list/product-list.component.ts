@@ -608,7 +608,6 @@ export class ProductListComponent {
 
   onSelectProduct(product: Product) {
     this.selectedProduct = product;
-    console.log(this.selectedProduct);
   }
 
   onFilter(filter: string) {
