@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Product } from './product/product.component';
 
 @Component({
   selector: 'product-list',
@@ -608,5 +609,25 @@ export class ProductListComponent {
   onFilter(filter: string) {
     this.selectedFilter = filter;
     console.log(this.selectedFilter);
+  }
+
+  @Input()
+  searchText: string = '';
+
+  get filteredProducts(): Product[] {
+    return this.products.filter((p) => {
+      // match the search text
+      const isMatch = p.name
+        .toLowerCase()
+        .includes(this.searchText.toLowerCase());
+
+      // match the filter
+      const isFilterMatch =
+        this.selectedFilter === 'all' ||
+        this.selectedFilter === p.is_in_inventory.toString();
+
+      // if search text is empty, return only the filter match else return both filter and search match
+      return this.searchText === '' ? isFilterMatch : isFilterMatch && isMatch;
+    });
   }
 }

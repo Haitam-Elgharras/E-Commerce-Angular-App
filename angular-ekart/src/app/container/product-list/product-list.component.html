@@ -6,15 +6,7 @@
 ></app-filter>
 
 <div class="ekart--products--container">
-  <div *ngFor="let p of products; let i = index">
-    <app-product
-      [product]="p"
-      [i]="i"
-      *ngIf="
-        selectedFilter == 'all' ||
-        selectedFilter == p.is_in_inventory.toString()
-      "
-    >
-    </app-product>
+  <div *ngFor="let p of filteredProducts; let i = index">
+    <app-product [product]="p" [i]="i"></app-product>
   </div>
 </div>
