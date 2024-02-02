@@ -2,8 +2,7 @@
   <app-search (searchTextChanged)="onSearchTextChange($event)"></app-search>
   <product-list [searchText]="searchText" #productListComponent></product-list>
   <product-details
-    [selectedProduct]="productListComponent.selectedProduct"
     *ngIf="productListComponent.selectedProduct"
-    (hideProductDetails)="productListComponent.selectedProduct = undefined"
+    [productListComp]="productListComponent"
   ></product-details>
 </div>
