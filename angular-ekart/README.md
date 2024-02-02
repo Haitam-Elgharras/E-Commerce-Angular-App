@@ -1,27 +1,191 @@
-# AngularEkart
+## Angular 16 - eKart
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
+### Contents:
 
-## Development server
+1. Angular CLI Commands
+2. Angular Concepts
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## 1. Angular CLI Commands
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Installation
 
-## Build
+To set up Angular development environment, you need to install Angular CLI globally:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+npm install -g @angular/cli@latest
+```
 
-## Running unit tests
+### Creating a New Project
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Generate a new Angular project with Angular CLI:
 
-## Running end-to-end tests
+```bash
+ng new my-app
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Running the Project
 
-## Further help
+Run your Angular project locally using:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+ng serve
+```
+
+This command compiles your application and starts a development server.
+
+### Building the Project
+
+Build your Angular project for production using:
+
+```bash
+ng build
+```
+
+### Installing Bootstrap
+
+To include Bootstrap in your Angular project, install it with npm:
+
+```bash
+npm install bootstrap --save
+```
+
+### Generating Components
+
+Angular CLI simplifies component creation:
+
+```bash
+ng generate component component-name
+```
+
+or
+
+```bash
+ng g c component-name
+```
+
+---
+
+## 2. Angular Concepts
+
+### Data Binding
+
+- **String Interpolation**: `{{ data }}`
+- **Property Binding**: `[property]="data"` or `bind-property="data"`
+
+  **Example**:
+
+  ```html
+  <img [src]="imagePath" />
+  ```
+
+- **Event Binding**: `(event)="expression"`
+
+  **Example**:
+
+  ```html
+  <button (click)="onButtonClick()">Click me!</button>
+  ```
+
+- **Two-Way Binding**: `[(ngModel)]="data"` or `[prop]="data" (Click)="propChange($event)"`
+
+  **Example**:
+
+  ```html
+  <input [(ngModel)]="username" />
+  ```
+
+### Directives
+
+- **Component Directives**: Add a component to the DOM.
+- **Attribute Directives**: Change the appearance or behavior of an element, component, or another directive.
+- **Structural Directives**: Change the structure of the DOM by adding or removing elements.
+
+  **Example**:
+
+  ```html
+  <div *ngIf="isVisible">Visible content</div>
+  ```
+
+### Communication Between Components
+
+- **From Parent to Child**: Use `@Input()` decorator.
+
+  **Example**:
+
+  ```typescript
+  @Input() item: string;
+  ```
+
+- **From Child to Parent**: Use `@Output()` decorator and EventEmitter.
+
+  **Example**:
+
+  ```typescript
+  @Output() newItemEvent = new EventEmitter<string>();
+  ```
+
+### Template Reference Variables
+
+Template reference variables store references to DOM elements, components, or directives, allowing access in the template.
+
+**Example**:
+
+```html
+<input #myInput type="text" />
+```
+
+### ViewChild and ViewChildren Decorators
+
+- **ViewChild**: Provides access to the first matching element, component, or directive with a template reference variable.
+- **ViewChildren**: Provides access to multiple matching elements, components, or directives with a template reference variable.
+
+  **Example**:
+
+  ```typescript
+  @ViewChild('myInput') myInput: ElementRef;
+  ```
+
+### ng-template
+
+- Used for defining templates.
+- Content can be conditionally rendered using `*ngIf` or projected using `ng-content`.
+
+  **Example**:
+
+  ```html
+  <ng-template #templateRef>
+    <h2>Template Reference</h2>
+  </ng-template>
+  ```
+
+### ng-container
+
+- A non-rendered element used to group elements together.
+- Does not interfere with styles or layout.
+
+  **Example**:
+
+  ```html
+  <ng-container *ngFor="let item of items">{{ item }}</ng-container>
+  ```
+
+### ng-content
+
+- Projects content from the parent component to the child component.
+- Allows for flexible component design and content projection.
+
+  **Example**:
+
+  ```html
+  <app-child>
+    <h2 class="heading">Hello</h2>
+  </app-child>
+  ```
+
+  In the child component:
+
+  ```html
+  <ng-content select=".heading"></ng-content>
+  ```
