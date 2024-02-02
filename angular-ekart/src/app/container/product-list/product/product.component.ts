@@ -1,21 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  discountPrice?: number;
-  color: (string | undefined)[];
-  imageURL: string;
-  brand: string;
-  gender: string;
-  category: string;
-  is_in_inventory: boolean;
-  description: string;
-  items_left: number;
-  slug: string;
-  size: number[];
-}
+import { Product } from 'src/app/models/Product';
 
 @Component({
   selector: 'app-product',

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-container',
@@ -7,7 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ContainerComponent {
   searchText: string = '';
-
   onSearchTextChange(value: string) {
     this.searchText = value;
   }

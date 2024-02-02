@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Product } from './product/product.component';
+import { Product } from 'src/app/models/Product';
 
 @Component({
   selector: 'product-list',
@@ -604,16 +604,21 @@ export class ProductListComponent {
   totalInStock = this.products.filter((p) => p.is_in_inventory).length;
   totalOutOfStock = this.totalNumber - this.totalInStock;
 
-  selectedFilter: string = 'all';
+  selectedProduct: Product | undefined;
+
+  onSelectProduct(product: Product) {
+    this.selectedProduct = product;
+    console.log(this.selectedProduct);
+  }
 
   onFilter(filter: string) {
     this.selectedFilter = filter;
-    console.log(this.selectedFilter);
   }
 
   @Input()
   searchText: string = '';
 
+  selectedFilter: string = 'all';
   get filteredProducts(): Product[] {
     return this.products.filter((p) => {
       // match the search text
