@@ -16,9 +16,9 @@
       <h2>{{ selectedProduct.name }}</h2>
     </div>
     <div class="ekart-product-detail-gbc">
-      <span>{{ selectedProduct.gender }}</span>
-      <span>{{ selectedProduct.brand }}</span>
-      <span>{{ selectedProduct.category }}</span>
+      <span setBackground>{{ selectedProduct.gender }}</span>
+      <span setBackground>{{ selectedProduct.brand }}</span>
+      <span setBackground>{{ selectedProduct.category }}</span>
     </div>
     <div class="ekart-product-detail-price">
       <p>
@@ -47,7 +47,8 @@
       </div>
       <diV style="margin-top: 20px">
         <span
-          class="ekart-product-detail-available-size"
+          setBackground
+          class="ekart-product-detail-available-size me-1 rounded"
           *ngFor="let size of selectedProduct.size"
           >{{ size }}</span
         >
