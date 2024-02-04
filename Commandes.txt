@@ -127,3 +127,113 @@ The view child allows us to access the DOM element without the need of waiting o
         <ng-content select=".heading"></ng-content>
     it will project the h2 element with the class heading to the child component
     
+
+# @ContentChild decorator
+    it is used to access the content being projected from the parent component to the child component
+ in the parent component
+    <app-child>
+        <div #contentRef>
+            <h2 class="heading">Hello</h2>
+        </div>
+    </app-child>
+so in the child component we can access the contentRef using the @ContentChild decorator
+   @ContentChild('contentRef') contentRef: ElementRef;
+we can't access them using the @ViewChild decorator because the content is projected from the parent component to the child component
+but from the parent component we can access the projected content using the @ViewChild decorator
+
+# ContentChildren decorator
+    it is used to access the content being projected from the parent component to the child component
+    it returns a QueryList of elements that matches the selector
+    it works the same way as the @ContentChild decorator but it returns a QueryList of elements that matches the selector
+
+
+### Lifecycle Hooks in Angular
+
+# Component Initialization
+1- by the time the constructor is called the attributes has only the initial values
+  and they if they receive a new value from the parent component the updated value will not be 
+  available in the constructor, the same for projected content. so we can say that when the constructor
+  is called only and instance of the component is created and the attributes are initialized with the initial values.
+
+2- when a component is removed from the DOM we say that it is destroyed
+
+The lifecycle of an Angular application revolves around the creation, rendering, updating, and destruction of components.
+
+1. Root Component Creation:
+When the Angular application starts, it creates and renders the root component defined in the AppModule.
+This root component serves as the entry point to the application and represents the top-level structure.
+
+2.Component Tree Formation:
+After rendering the root component, Angular proceeds to create and render its child components, and their subsequent children.
+This hierarchical structure forms a tree of components, where each component encapsulates specific functionality or UI elements.
+
+3.Rendering the View:
+Once Angular loads a component, it initiates the process of rendering its associated view.
+This involves checking input properties, evaluating data bindings and expressions, rendering projected content, and handling events.
+
+4.Lifecycle Hooks:
+Angular provides lifecycle hooks, which are methods that allow developers to tap into various stages of a component's lifecycle.
+These hooks enable developers to execute custom logic or perform tasks at specific points in the component's lifecycle.
+Some commonly used lifecycle hooks include ngOnInit, ngOnChanges, ngAfterViewInit, ngOnDestroy, etc.
+
+5.Component Removal from DOM:
+Angular also manages the removal of components from the DOM when they are no longer needed.
+This occurs when components are destroyed either explicitly or due to changes in the application state.
+
+6.Event Notification:
+Angular informs developers about these lifecycle events, providing visibility into the component's lifecycle.
+Developers can leverage these notifications to perform cleanup tasks, manage resources, or trigger additional behavior as needed.
+
+and developers can tap into these lifecycle events to perform custom logic or tasks at specific points in the component's lifecycle.
+the hooks are : 
+    ngOnChanges, ngOnInit, ngDoCheck, ngAfterContentInit, ngAfterContentChecked, ngAfterViewInit, ngAfterViewChecked, ngOnDestroy
+
+1- ngOnChanges:
+    it is called when an input property of the component initialized for the first time.
+    it is called when the input property of the component changes.
+    it accepts an object of type SimpleChanges which contains the previous and the current value of the input property.
+    it will not be called if the input property is not changed.
+    if it has no input properties it will not be called.
+    if we passed a reference type to the input property and we change the property of the object it will not be called because the reference is not changed.
+ 
+2- ngOnInit:(only once)
+    it is called after ngOnChanges.
+    it is called only once, after the initialization of the component.
+    it is called even if the component has no input properties.(unlike ngOnChanges)
+    by the time it is called non of the viewChild or viewContent are initialized and the view is not rendered yet.
+    the best place for any initialization logic.
+
+3- ngDoCheck:
+    it is called after the ngOnInit.
+    it is called after every change detection cycle even if nothing has changed.
+    use it to implement your own change detection logic whenever a change detection cycle is triggered.
+
+4- ngAfterContentInit:(only once) (only for components not for directives)
+    it is called after the ngDoCheck.
+    it is called after the projected content is initialized and only once.
+    even if we don't have projected content it will be called.
+    angular updates the props decorated with @ContentChild and @ContentChildren just before calling this hook.
+
+5- ngAfterContentChecked:(only for components not for directives)
+    it is called after every change detection cycle even if nothing has changed or there is no projected content.
+   - the  difference between it and ngDoCheck is that it is called after the projected content is checked, so before the projected content is checked ngDoCheck is irreplaceable,
+    also if we want to compare the previous and the current value of the projected we can do it only with ngAfterContentChecked.
+   - just before calling this hook angular updates the props decorated with @ContentChild and @ContentChildren.
+
+6- ngAfterViewInit:(only once) (only for components not for directives)
+    it is called only once when the component view and all its children used in the view are initialized.
+    angular updates the props decorated with @ViewChild and @ViewChildren just before calling this hook.
+   - by the time this hook get's called for a component, all the lifecycle hook methods of child components 
+     and directives are completely processed and child components are completely ready.
+
+7- ngAfterViewChecked:(only for components not for directives)
+    it is called after every change detection cycle, also whenever the view of the component or its children changes, or even if nothing has changed.
+    just before calling this hook angular updates the props decorated with @ViewChild and @ViewChildren.
+    @ViewChild and @viewContent will be available in this hook.
+   - if we want to compare the previous and the current value of the view we can do it only with ngAfterViewChecked.
+
+8- ngOnDestroy:
+    it is called just before the component is destroyed.
+    it is called when the component is removed from the DOM.
+    it is a great place to do any cleanup logic, like unsubscribing from observables, or removing event listeners.
+    it's the last lifecycle hook to be called before the component&directive is destroyed.
