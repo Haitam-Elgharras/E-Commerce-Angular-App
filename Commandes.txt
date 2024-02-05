@@ -237,3 +237,20 @@ the hooks are :
     it is called when the component is removed from the DOM.
     it is a great place to do any cleanup logic, like unsubscribing from observables, or removing event listeners.
     it's the last lifecycle hook to be called before the component&directive is destroyed.
+
+
+
+# Custom Directives:
+ Renderer2 : when creating a custom directive its not recommended to manipulate the DOM directly, instead 
+    we should use the Renderer2 service which is a better way to manipulate the DOM, to prevent any security issues(like XSS attacks)
+    and also to make the application more portable(web workers, server-side rendering, etc)
+    and to do not stole the component based architecture of Angular.
+
+ @HostListener : it is used to listen to the events of the host element of the directive.
+ ex : @HostListener('mouseenter') mouseover(){
+        this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
+    }
+
+@HostBinding : it is used to bind props of the directive in the host element of the directive.
+ex : @HostBinding('style.backgroundColor') backgroundColor: string = 'transparent';
+so the backgroundColor of the host element will be transparent by default.

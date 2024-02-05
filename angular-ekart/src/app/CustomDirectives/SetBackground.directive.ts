@@ -1,19 +1,20 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive, ElementRef, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[setBackground]',
 })
-// each element with setBackground directive will have it's own instance of this directive
-// and that element will be injected by angular to the constructor of this directive
 export class SetBackgroundDirective implements OnInit {
-  // private element: ElementRef;
-  constructor(private element: ElementRef) {
-    // this.element = element;
-  }
+  constructor(private element: ElementRef, private renderer: Renderer2) {}
 
+  // manipulating the DOM directly is a bad practice
   ngOnInit() {
-    this.element.nativeElement.style.backgroundColor = '#36454F';
-    this.element.nativeElement.style.color = 'white';
-    console.log('SetBackgroundDirective called');
+    // this.element.nativeElement.style.backgroundColor = '#36454F';
+    // this.element.nativeElement.style.color = 'white';
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      'backgroundColor',
+      '#36454F'
+    );
+    this.renderer.setStyle(this.element.nativeElement, 'color', 'white');
   }
 }
