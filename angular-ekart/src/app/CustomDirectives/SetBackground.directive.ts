@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[setBackground]',
@@ -6,15 +6,23 @@ import { Directive, ElementRef, OnInit, Renderer2 } from '@angular/core';
 export class SetBackgroundDirective implements OnInit {
   constructor(private element: ElementRef, private renderer: Renderer2) {}
 
-  // manipulating the DOM directly is a bad practice
+  @Input('setBackground') backgroundColor: string = '';
+  @Input() textColor: string = '';
+
+  // This is an alias for the input property then we can call it like this: <div [setBackground]="'red'">
+  // @Input('setBackground') test = '';
+
+  // also we can declare it as object @Input() setBackground:
+  // { backgroundColor: string; textColor: string } = { backgroundColor: '', textColor: '' };
+  // then we can call it like this: <div [setBackground]="{ backgroundColor: 'red', textColor: 'white' }">
+
   ngOnInit() {
-    // this.element.nativeElement.style.backgroundColor = '#36454F';
-    // this.element.nativeElement.style.color = 'white';
     this.renderer.setStyle(
       this.element.nativeElement,
       'backgroundColor',
-      '#36454F'
+      this.backgroundColor
     );
-    this.renderer.setStyle(this.element.nativeElement, 'color', 'white');
+
+    this.renderer.setStyle(this.element.nativeElement, 'color', this.textColor);
   }
 }

@@ -16,9 +16,15 @@
       <h2>{{ selectedProduct.name }}</h2>
     </div>
     <div class="ekart-product-detail-gbc">
-      <span setBackground>{{ selectedProduct.gender }}</span>
-      <span setBackground>{{ selectedProduct.brand }}</span>
-      <span setBackground>{{ selectedProduct.category }}</span>
+      <span [setBackground]="'#36454F'" [textColor]="'white'">{{
+        selectedProduct.gender
+      }}</span>
+      <span [setBackground]="'#36454F'" [textColor]="'white'">{{
+        selectedProduct.brand
+      }}</span>
+      <span [setBackground]="'#36454F'" [textColor]="'white'">{{
+        selectedProduct.category
+      }}</span>
     </div>
     <div class="ekart-product-detail-price">
       <p>
