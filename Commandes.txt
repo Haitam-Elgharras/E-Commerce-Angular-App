@@ -278,6 +278,9 @@ angular will try to bind the prop to the directive and if it doesn't find it in 
 
 # Simulation of ngClass with an ngCustomClass
 
+we will receive an object from the host element like this 
+<app [ngCustomClass]="{'class1':7>3,'class2':...}" />
+
 import { Directive, Input, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
@@ -286,16 +289,9 @@ import { Directive, Input, ElementRef, Renderer2 } from '@angular/core';
 export class NgCustomClassDirective {
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
-  @Input('ngCustomClass') classList: any;
-
-  ngOnChanges() {
-    this.updateClasses();
-  }
-
-  private updateClasses() {
-    let items = Object.entries(this.classList);
-    if (this.classList) {
-      for (const [className, condition] of items) {
+  @Input('ngCustomClass') set display(classList:Object) {
+    if (classList) {
+      for (const [className, condition] of Object.entries(classList)) {
         if (condition) {
           this.renderer.addClass(this.elementRef.nativeElement, className);
         } else {
@@ -305,3 +301,24 @@ export class NgCustomClassDirective {
     }
   }
 }
+
+# Simulation of ngStyle directive
+the diff that always we will receive the cssProp and its value
+
+import { Directive, Input, ElementRef, Renderer2 } from '@angular/core';
+
+@Directive({
+  selector: '[ngCustomStyle]'
+})
+export class NgCustomStyleDirective {
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+
+  @Input('ngCustomStyle') set style(styles:Object) {
+    if (styles) {
+      for (const [property, value] of Object.entries(styles)) {
+        this.renderer.setStyle(this.elementRef.nativeElement, property, value);
+      }
+    }
+  }
+}
+
