@@ -194,11 +194,12 @@ the hooks are :
     it accepts an object of type SimpleChanges which contains the previous and the current value of the input property.
     it will not be called if the input property is not changed.
     if it has no input properties it will not be called.
-    if we passed a reference type to the input property and we change the property of the object it will not be called because the reference is not changed.
+    if we passed a reference type to the input property and we change the property of the object it will not be called because 
+    the reference is not changed.
  
 2- ngOnInit:(only once)
     it is called after ngOnChanges.
-    it is called only once, after the initialization of the component.
+    it is called only once, after the initialization of the component (initializing the input properties)
     it is called even if the component has no input properties.(unlike ngOnChanges)
     by the time it is called non of the viewChild or viewContent are initialized and the view is not rendered yet.
     the best place for any initialization logic.
@@ -250,7 +251,57 @@ the hooks are :
  ex : @HostListener('mouseenter') mouseover(){
         this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'blue');
     }
+we can pass optional args as string to host listener function for example 
+ @HostListener('input', ['$event.target.value'])
+  onInput(value: string) {
+    console.log('Input value:', value);
+  }
 
 @HostBinding : it is used to bind props of the directive in the host element of the directive.
 ex : @HostBinding('style.backgroundColor') backgroundColor: string = 'transparent';
 so the backgroundColor of the host element will be transparent by default.
+
+# Property Binding in Directives: we can bind the properties to the directive using the @Input decorator and then pass the value to the directive
+via the host element of the directive like this
+    <p appBasicHighlight [highlightColor]="'yellow'">Style me with yellow</p>
+also if we have a single input property we can use the selector of the directive as a alias for the input property
+    @Input('appBasicHighlight') highlightColor: string = 'transparent';
+    this.renderer.setStyle(this.elRef.nativeElement, 'backgroundColor', this.highlightColor);
+
+so we can use the directive like this
+    <p [appBasicHighlight]="'yellow'">Style me with yellow</p>
+
+Imagine that the prop we want to bind to the directive exists also in the component of the host element of the directive, In this 
+angular will try to bind the prop to the directive and if it doesn't find it in the directive it will look for it in the component.
+    
+
+
+# Simulation of ngClass with an ngCustomClass
+
+import { Directive, Input, ElementRef, Renderer2 } from '@angular/core';
+
+@Directive({
+  selector: '[ngCustomClass]'
+})
+export class NgCustomClassDirective {
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+
+  @Input('ngCustomClass') classList: any;
+
+  ngOnChanges() {
+    this.updateClasses();
+  }
+
+  private updateClasses() {
+    let items = Object.entries(this.classList);
+    if (this.classList) {
+      for (const [className, condition] of items) {
+        if (condition) {
+          this.renderer.addClass(this.elementRef.nativeElement, className);
+        } else {
+          this.renderer.removeClass(this.elementRef.nativeElement, className);
+        }
+      }
+    }
+  }
+}

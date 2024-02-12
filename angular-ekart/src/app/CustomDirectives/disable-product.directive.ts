@@ -6,7 +6,7 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 export class DisableProductDirective {
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
-  // the set keyword make it possible to receive args from the host element
+  // The set accessor allows for custom logic to be executed whenever the input property changes.
   @Input() set disableProduct(isDisabled: boolean) {
     if (isDisabled) {
       this.renderer.addClass(
