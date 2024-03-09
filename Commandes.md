@@ -371,5 +371,27 @@ in the app component
     </div>
 
 
+# View encapsulation
+- ViewEncapsulation.Emulated: it is the default value, it emulates the shadow DOM, it adds a unique attribute to the host element of the component and then it uses this attribute to scope the styles of the component, so the styles of the component will not affect the styles of the child components.
+
+we set it under the styleUrls array in the @Component decorator
+    @Component({
+        selector: 'app-servers',
+        templateUrl: './servers.component.html',
+        styleUrls: ['./servers.component.css'],
+        encapsulation: ViewEncapsulation.Emulated
+    })
+
+- ViewEncapsulation.None: 
+* Disables Angular's default CSS encapsulation mechanism.
+* Styles defined within the component become global, meaning they can potentially affect any element in the application, regardless of component hierarchy.
+
+- ViewEncapsulation.ShadowDom: it uses the shadow DOM to encapsulate the styles of the component, and the component will not get effected by any styles from the outside even the global styles.
+* Superior Style Isolation: Styles defined within the component are truly scoped and won't affect or be affected by styles from other components.
+* Reduced Risk of Style Conflicts: No more worries about global styles or styles from sibling components interfering.
+* Enhanced Maintainability: Easier to reason about component styles and debug issues.
+
+
+
 
 
