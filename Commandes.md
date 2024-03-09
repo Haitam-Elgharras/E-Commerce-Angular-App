@@ -71,7 +71,13 @@ onEvent() {
 }
 
 so the parent component can listen to the event newItemEvent and can receive 
-the emitted data from the child component
+the emitted data from the child component like this :
+    <app-child (newItemEvent)="addItem($event)"></app-child>
+
+and in the class of the parent component we can define the addItem method to receive the emitted data from the child component
+    addItem(newItem: string) {
+        this.items.push(newItem);
+    }
 
 
 # Template reference variables
@@ -153,7 +159,7 @@ but from the parent component we can access the projected content using the @Vie
 1- by the time the constructor is called the attributes has only the initial values
   and they if they receive a new value from the parent component the updated value will not be 
   available in the constructor, the same for projected content. so we can say that when the constructor
-  is called only and instance of the component is created and the attributes are initialized with the initial values.
+  is called only an instance of the component is created and the attributes are initialized with the initial values.
 
 2- when a component is removed from the DOM we say that it is destroyed
 
@@ -241,7 +247,7 @@ the hooks are :
 
 
 
-# Custom Directives:
+# Custom Attribute Directives:
  Renderer2 : when creating a custom directive its not recommended to manipulate the DOM directly, instead 
     we should use the Renderer2 service which is a better way to manipulate the DOM, to prevent any security issues(like XSS attacks)
     and also to make the application more portable(web workers, server-side rendering, etc)
@@ -263,7 +269,7 @@ so the backgroundColor of the host element will be transparent by default.
 
 # Property Binding in Directives: we can bind the properties to the directive using the @Input decorator and then pass the value to the directive
 via the host element of the directive like this
-    <p appBasicHighlight [highlightColor]="'yellow'">Style me with yellow</p>
+    <p appBasicHighlight [highlightColor]="'yellow'">Styled with yellow</p>
 also if we have a single input property we can use the selector of the directive as a alias for the input property
     @Input('appBasicHighlight') highlightColor: string = 'transparent';
     this.renderer.setStyle(this.elRef.nativeElement, 'backgroundColor', this.highlightColor);
@@ -277,6 +283,7 @@ angular will try to bind the prop to the directive and if it doesn't find it in 
 
 
 # Simulation of ngClass with an ngCustomClass
+the diff that always we receive a bool value (true or false) indicating if the class should be added or removed
 
 we will receive an object from the host element like this 
 <app [ngCustomClass]="{'class1':7>3,'class2':...}" />
@@ -303,7 +310,7 @@ export class NgCustomClassDirective {
 }
 
 # Simulation of ngStyle directive
-the diff that always we will receive the cssProp and its value
+the diff that always we will receive the cssProp and its value cause the condition will give us the value of the cssProp
 
 import { Directive, Input, ElementRef, Renderer2 } from '@angular/core';
 
@@ -321,4 +328,48 @@ export class NgCustomStyleDirective {
     }
   }
 }
+
+
+# Custom Structural directives:
+
+ - How angular uses them behind the seen.
+ ![alt text](/images/Structural_directive_behind_the_seen.png)
+
+
+# Simulation of Custom *ngIf derictive
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+@Directive({
+  selector: '[ngCustomIf]'
+})
+
+export class NgCustomIfDirective {
+  constructor(private view: TemplateRef<any>, private template: ViewContainerRef) {}
+
+    @Input() set ngCustomIf(condition: boolean) {
+        if (condition) {
+        this.template.createEmbeddedView(this.view);
+        } else {
+        this.template.clear();
+        }
+    }
+}
+
+in the app component
+<div ngCustomIf="someCondition">
+    <p>Some text</p>
+</div>
+
+- the set allows us to handle a property as a method so we can execute some logic whenever the property is changed.
+
+
+# ng switch
+    <div [ngSwitch]="value">
+        <p *ngSwitchCase="service">Service</p>
+        <p *ngSwitchCase="component">Component</p>
+        <p *ngSwitchDefault>Default</p>
+    </div>
+
+
+
 
