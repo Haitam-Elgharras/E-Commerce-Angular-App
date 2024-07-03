@@ -20,6 +20,21 @@ import { HighlightDirective } from './CustomDirectives/highlight.directive';
 import { AppHoverDirective } from './CustomDirectives/app-hover.directive';
 import { DisableProductDirective } from './CustomDirectives/disable-product.directive';
 
+
+
+// Here we can specify Routing
+/*
+
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: '', component: ContainerComponent },
+  { path: 'product-details', component: ProductDetailsComponent },
+  { path: 'featured-brands', component: FeaturedBrandsComponent },
+];
+*/
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +54,10 @@ import { DisableProductDirective } from './CustomDirectives/disable-product.dire
     AppHoverDirective,
     DisableProductDirective,
   ],
-  imports: [BrowserModule, FormsModule],
+  imports: [
+    BrowserModule, // This is required to run your app in a browser
+    FormsModule // This is required for using forms and two-way data binding
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

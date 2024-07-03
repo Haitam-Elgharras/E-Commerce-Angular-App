@@ -4,6 +4,26 @@ npm i -g @angular/cli@latest
 # To create a new Angular project
 ng new my-app
 
+## This course for Version 16 of angular
+To create an angular projec in v17 with the app module like version 16
+- ng new my-app --no-standalone
+
+# To add bootstrap and boostrap icons to the project
+- npm install bootstrap bootstrap-icons
+ then add the path of the bootstrap css file to the styles array in the angular.json file
+
+
+ ## Work with json-server for front-end testing
+    - npm install -g json-server
+    - create a data/db.json file
+    - run the cmd `json-server -w data/db.json -p 3000`
+
+## To generate an interface in any language 
+    - go to json to typescript for example then paste the json object and generate the interface
+
+## Public properties in the component class
+ - Any prop that will be used in the html should be public to avoid build errors.
+
 # To run the Angular project
 ng serve 
 this command will compile and bundle the application and start the server
@@ -37,7 +57,18 @@ example : <img [src]="imagePath">
     [(ngModel)]="data"
 or [prop]="data" (Click)="propChange($event)"
 
-# Directives
+
+# Types of selectors in Angular
+1- element selector : pour l'utiliser comme une balise html
+    selector: 'app-servers'
+    <app-servers></app-servers>
+
+2- directive selector : pour l'utiliser comme un directive
+    selector: '[app-servers]'
+    <div app-servers></div>
+
+
+# Directives : instructions in the DOM
 1- component directive : add a component to the DOM
     for example <app-root></app-root>
     
@@ -390,6 +421,67 @@ we set it under the styleUrls array in the @Component decorator
 * Superior Style Isolation: Styles defined within the component are truly scoped and won't affect or be affected by styles from other components.
 * Reduced Risk of Style Conflicts: No more worries about global styles or styles from sibling components interfering.
 * Enhanced Maintainability: Easier to reason about component styles and debug issues.
+
+
+
+
+# Services in Angular
+- A service is a class that can be used to share data and functionality across Multiple components.
+- We can use it to communicate between non-related components.
+![alt text](/images/servicesInAngluar.png)
+
+In Angular, services are a fundamental concept for promoting code organization, reusability, and separation of concerns. The naming
+convention for services is **service-name.service.ts**
+
+## Why Services?
+
+- **Data Sharing**: Services act as a central repository for data that needs to be accessed by multiple components throughout your application. This avoids data duplication and ensures consistency.
+- **Business Logic**: Services encapsulate application logic and functionality, keeping components focused on presentation. It separates concerns for better maintainability.
+- **Dependency Injection**: Services are injectable, meaning components can request them as dependencies. This promotes loose coupling and testability.
+
+## How to Use Services:
+
+1. **Create a Service**: 
+   - We can use ng g s service-name to create a service.
+
+Define a TypeScript class this class can contain:
+   - Properties to hold data.
+   - Methods to perform operations on the data or interact with external APIs.
+
+2. **Provide What service**: Register the service with Angular's dependency injection system by adding it to the `providers` array in the `@Component` or `@NgModule` decorator.
+
+3. **Inject the Service**: Components can request the service as a dependency in their constructor (`constructor(private myService: MyService) {}`).
+
+4. **Use the Service**: Access the service's properties and methods within the component to share data or perform operations.
+
+5. **Inject a service into another service**: we can inject a service into another service by adding `@Injectable()` in the service where
+we want to inject something then adding the needed deps in the constructor of the service.
+- but it's a best practice to add @Injectable() to all our services even if they don't have any dependencies
+- we can add an object inside the @Injectable() decorator called providedIn: 'root' here we are telling angular that this service should be provided in the root module (app module) so we don't need to explicitly add it to the providers array in the app module.
+- To know more about DI in angular check Angular token-based DI.
+
+## Benefits:
+
+- **Modular Design**: Services promote a cleaner and more modular codebase, making it easier to understand, maintain, and test.
+- **Code Reusability**: Services can be reused across different components, reducing code duplication and improving development efficiency.
+- **Improved Testability**: By isolating logic in services, you can write unit tests more effectively, as services are typically simpler to test than components.
+![alt text](/images/DI.png)
+
+
+## DI hirearchy and DI override
+- If a parent component provides a service all its children will have access to the same instance of the service.
+- If a child component provides a service it will override the service provided by the parent component, and they
+will be using different instances of the service.
+- If a serivce is provided in the ngModule it will be available throughout the application.
+
+
+## Interceptors
+- Interceptors are a powerful feature in Angular that allow you to intercept HTTP requests and responses.
+- They provide a way to modify or transform requests and responses globally before they are sent or received by the server.
+
+To generate an interceptor we can use the following command:
+    `ng g interceptor interceptor-name`
+- An interceptor is a service that implements the HttpInterceptor interface.
 
 
 
